@@ -20,7 +20,7 @@ export async function fetchAllProducts(products) {
 }
 
 //6
-export async function fetchCategory(value) {
-  const { data } = await axios(`${BASE_URL}/category/${value}`);
-  return data;
-}
+// export async function fetchCategory(value) {
+//   const { data } = await axios(`${BASE_URL}/category/${value}`);
+//   return data;
+// }
