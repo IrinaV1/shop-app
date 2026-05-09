@@ -25,3 +25,19 @@ export function markupProducts(arr) {
     )
     .join('');
 }
+
+export function markupModalProduct(arr) {
+  return arr.map(
+    item =>
+      `<img class="modal-product__img" src="" alt="" />
+      <div class="modal-product__content">
+        <p class="modal-product__title"></p>
+        <ul class="modal-product__tags"></ul>
+        <p class="modal-product__description"></p>
+        <p class="modal-product__shipping-information">Shipping:</p>
+        <p class="modal-product__return-policy">Return Policy:</p>
+        <p class="modal-product__price">Price: $</p>
+        <button class="modal-product__buy-btn" type="button">Buy</button>
+      </div>`
+  );
+}

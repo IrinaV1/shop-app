@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BASE_URL, currentPage } from './constants';
 
 //5
-export async function fetchCategories(categories) {
+export async function fetchCategories() {
   const { data } = await axios(`${BASE_URL}/category-list`);
   return data;
 }
@@ -12,15 +12,15 @@ export async function fetchProducts(product) {
   return data;
 }
 //2
-export async function fetchAllProducts(products) {
+export async function fetchAllProducts(page = 1) {
   const { data } = await axios(
-    `${BASE_URL}?limit=12&skip=${(currentPage - 1) * 12} `
+    `${BASE_URL}?limit=12&skip=${(currentPage - 1) * 12}`
   );
   return data;
 }
 
 //6
-// export async function fetchCategory(value) {
-//   const { data } = await axios(`${BASE_URL}/category/${value}`);
-//   return data;
-// }
+export async function fetchCategory(value) {
+  const { data } = await axios(`${BASE_URL}/category/${value}`);
+  return data;
+}
