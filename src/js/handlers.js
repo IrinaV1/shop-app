@@ -1,11 +1,18 @@
 import { currentPage } from './constants';
+import { openModal } from './modal';
+
 import {
   fetchAllProducts,
   fetchCategories,
   fetchCategory,
+  fetchProductId,
 } from './products-api';
 import { refs } from './refs';
-import { markupCategories, markupProducts } from './render-function';
+import {
+  markupCategories,
+  markupModalProduct,
+  markupProducts,
+} from './render-function';
 
 export async function handleSubmit(event) {
   event.preventDefault();
@@ -56,6 +63,22 @@ export async function handleCategoryClick(event) {
     refs.listProducts.innerHTML = markupProducts(data.products);
 
     button.classList.add('categories__btn--active');
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+export async function handleModal(event) {
+  const itemCard = event.target.closest('.products__item');
+  if (!itemCard) return;
+  const itemID = itemCard.dataset.id;
+
+  console.log(itemID);
+  try {
+    const data = await fetchProductId(itemID);
+    console.log(data);
+    refs.modalProduct.innerHTML = markupModalProduct(data);
+    openModal();
   } catch (error) {
     alert(error.message);
   }

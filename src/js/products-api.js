@@ -24,3 +24,8 @@ export async function fetchCategory(value) {
   const { data } = await axios(`${BASE_URL}/category/${value}`);
   return data;
 }
+//3
+export async function fetchProductId(id) {
+  const { data } = await axios(`${BASE_URL}/${id}`);
+  return data;
+}
