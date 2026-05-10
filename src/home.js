@@ -1,6 +1,11 @@
 //Логіка сторінки Home
 
-import { handleCategoryClick, handleModal, handleSubmit } from './js/handlers';
+import {
+  handleCategoryClick,
+  handleFormClearBtn,
+  handleModal,
+  handleSubmit,
+} from './js/handlers';
 import { currentPage } from './js/constants';
 import {
   fetchAllProducts,
@@ -10,8 +15,6 @@ import {
 import { refs } from './js/refs';
 import { markupCategories, markupProducts } from './js/render-function';
 import { closeModal } from './js/modal';
-
-// refs.form.addEventListener('submit', handleSubmit);
 
 fetchCategories()
   .then(data => {
@@ -44,3 +47,6 @@ refs.listCategories.addEventListener('click', handleCategoryClick);
 //4. Реалізуй делегування на списку ul.products
 refs.listProducts.addEventListener('click', handleModal);
 refs.modalCloseBtn.addEventListener('click', closeModal);
+
+refs.form.addEventListener('submit', handleSubmit);
+refs.formClearBtn.addEventListener('click', handleFormClearBtn);

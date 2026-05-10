@@ -6,6 +6,7 @@ import {
   fetchCategories,
   fetchCategory,
   fetchProductId,
+  fetchProductName,
 } from './products-api';
 import { refs } from './refs';
 import {
@@ -14,24 +15,6 @@ import {
   markupProducts,
 } from './render-function';
 
-export async function handleSubmit(event) {
-  event.preventDefault();
-  let query = event.target.elements.searchValue.value.trim();
-  console.log(query);
-
-  if (!query) {
-    alert('Оберіть категорію');
-  }
-
-  try {
-    const data = await fetchCategories(query);
-    console.log(data);
-  } catch (error) {
-    alert(error.message);
-  } finally {
-    event.target.reset();
-  }
-}
 //3. Реалізуй делегування на списку ul.categories
 export async function handleCategoryClick(event) {
   if (event.target.nodeName !== 'BUTTON') return;
@@ -83,3 +66,50 @@ export async function handleModal(event) {
     alert(error.message);
   }
 }
+
+//form
+export async function handleSubmit(event) {
+  event.preventDefault();
+
+  let query = event.target.elements.searchValue.value.trim();
+  console.log(query);
+
+  if (!query) {
+    refs.notFound.classList.add('not-found--visible');
+    refs.listProducts.innerHTML = '';
+    return;
+  }
+
+  try {
+    const data = await fetchProductName(query);
+    console.log(data);
+    if (data.products.length === 0) {
+      refs.listProducts.innerHTML = '';
+      refs.notFound.classList.add('not-found--visible');
+      return;
+    }
+    refs.notFound.classList.remove('not-found--visible');
+
+    refs.listProducts.innerHTML = markupProducts(data.products);
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    event.target.reset();
+  }
+}
+
+export async function handleFormClearBtn() {
+  refs.form.reset();
+  try {
+    const data = await fetchAllProducts();
+
+    refs.notFound.classList.remove('not-found--visible');
+
+    refs.listProducts.innerHTML = markupProducts(data.products);
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+//Cart
+export function handleAddToCart() {}

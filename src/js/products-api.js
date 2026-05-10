@@ -6,7 +6,7 @@ export async function fetchCategories() {
   const { data } = await axios(`${BASE_URL}/category-list`);
   return data;
 }
-//4
+//1
 export async function fetchProducts(product) {
   const { data } = await axios(`${BASE_URL}`);
   return data;
@@ -27,5 +27,16 @@ export async function fetchCategory(value) {
 //3
 export async function fetchProductId(id) {
   const { data } = await axios(`${BASE_URL}/${id}`);
+  return data;
+}
+//4
+export async function fetchProductName(query, page = 1) {
+  const { data } = await axios(`${BASE_URL}/search`, {
+    params: {
+      q: query,
+      limit: 12,
+      skip: (page - 1) * 12,
+    },
+  });
   return data;
 }
