@@ -1,1 +1,1 @@
-{"version":3,"file":"cart.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"cart.js","sources":["../src/cart.js"],"sourcesContent":["import { handleAddToCart } from './js/handlers';\nimport { refs } from './js/refs';\n\n//Логіка сторінки Cart\nrefs.modalAddToCart.addEventListener('click', handleAddToCart);\n"],"names":["refs","handleAddToCart"],"mappings":"4HAIAA,EAAK,eAAe,iBAAiB,QAASC,CAAe"}
