@@ -1,6 +1,7 @@
 //Логіка сторінки Home
 
 import {
+  handleAddToCart,
   handleCategoryClick,
   handleFormClearBtn,
   handleModal,
@@ -48,5 +49,11 @@ refs.listCategories.addEventListener('click', handleCategoryClick);
 refs.listProducts.addEventListener('click', handleModal);
 refs.modalCloseBtn.addEventListener('click', closeModal);
 
+//5. Пошук товарів за назвою.
 refs.form.addEventListener('submit', handleSubmit);
 refs.formClearBtn.addEventListener('click', handleFormClearBtn);
+
+//Кошик:
+//1. Додавання товарів у кошик.
+
+refs.modalAddToCart.addEventListener('click', handleAddToCart);

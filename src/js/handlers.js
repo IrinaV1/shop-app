@@ -1,4 +1,4 @@
-import { currentPage } from './constants';
+import { arrIdCart, currentPage } from './constants';
 import { openModal } from './modal';
 
 import {
@@ -61,6 +61,7 @@ export async function handleModal(event) {
     const data = await fetchProductId(itemID);
     console.log(data);
     refs.modalProduct.innerHTML = markupModalProduct(data);
+    refs.modal.dataset.id = itemID;
     openModal();
   } catch (error) {
     alert(error.message);
@@ -111,5 +112,14 @@ export async function handleFormClearBtn() {
   }
 }
 
-//Cart
-export function handleAddToCart() {}
+//Кошик:
+//1. Додавання товарів у кошик.
+export function handleAddToCart(event) {
+  let button = event.target;
+  console.log(button);
+  const idCart = refs.modal.dataset.id;
+  arrIdCart.push(idCart);
+  console.log(arrIdCart);
+
+  console.log(idCart);
+}

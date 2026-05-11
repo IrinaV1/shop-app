@@ -8,4 +8,5 @@ export const refs = {
   formClearBtn: document.querySelector('.search-form__btn-clear'),
   notFound: document.querySelector('.not-found'),
   modalAddToCart: document.querySelector('.modal-product__btn--cart'),
+  modalWishlistCart: document.querySelector('.modal-product__btn--wishlist'),
 };
