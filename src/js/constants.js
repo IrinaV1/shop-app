@@ -1,4 +1,10 @@
-export const BASE_URL = 'https://dummyjson.com/products';
-export const currentPage = 1;
+export const BASE_URL = 'https://dummyjson.com';
+export const API_ENDPOINTS = {
+  CATEGORIES: '/products/category-list',
+  PRODUCTS: '/products',
+  CATEGORY: '/products/category/',
+};
+export const PER_PAGE = 12;
+
 export const CART_KEY = 'cart';
-export const arrIdCart = [];
+export let arrIdCart = [];

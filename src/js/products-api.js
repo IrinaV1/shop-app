@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { BASE_URL, currentPage } from './constants';
-
+import { API_ENDPOINTS, BASE_URL, PER_PAGE } from './constants';
+axios.defaults.baseURL = BASE_URL;
 //5
 export async function fetchCategories() {
-  const { data } = await axios(`${BASE_URL}/category-list`);
+  const { data } = await axios.get(API_ENDPOINTS.CATEGORIES);
   return data;
 }
 //1
@@ -12,16 +12,20 @@ export async function fetchProducts(product) {
   return data;
 }
 //2
-export async function fetchAllProducts(page = 1) {
-  const { data } = await axios(
-    `${BASE_URL}?limit=12&skip=${(currentPage - 1) * 12}`
+export async function fetchAllProducts(currentPage) {
+  const skip = (currentPage - 1) * 12;
+  const { data } = await axios.get(
+    `${API_ENDPOINTS.PRODUCTS}?limit=${PER_PAGE}&skip=${skip}`
   );
   return data;
 }
 
 //6
-export async function fetchCategory(value) {
-  const { data } = await axios(`${BASE_URL}/category/${value}`);
+export async function fetchCategory(category, currentPage) {
+  const skip = (currentPage - 1) * 12;
+  const { data } = await axios.get(
+    `${API_ENDPOINTS.CATEGORY}${category}?limit=${PER_PAGE}&skip=${skip}`
+  );
   return data;
 }
 //3

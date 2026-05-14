@@ -114,3 +114,7 @@
 .load-more-btn.is-hidden {
   display: none;
 }
+
+.loader.is-hidden {
+  display: none;
+}

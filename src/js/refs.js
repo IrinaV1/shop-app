@@ -1,6 +1,9 @@
-export const refs = {
+export default {
   listCategories: document.querySelector('.categories'),
   listProducts: document.querySelector('.products'),
+  loadMore: document.querySelector('.load-more-btn'),
+  loader: document.querySelector('.loader'),
+  notFound: document.querySelector('.not-found'),
   modal: document.querySelector('.modal'),
   modalProduct: document.querySelector('.modal-product'),
   modalCloseBtn: document.querySelector('.modal__close-btn'),
