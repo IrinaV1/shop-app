@@ -53,26 +53,28 @@ export function showNotFound() {
 export function hideNotFound() {
   refs.notFound.classList.remove('not-found--visible');
 }
-// export function markupModalProduct({
-//   id,
-//   category,
-//   brand,
-//   title,
-//   images,
-//   price,
-//   tags,
-//   description,
-//   shippingInformation,
-//   returnPolicy,
-// }) {
-//   return `<img class="modal-product__img" src="${images[0]}" alt="${title}" />
-//       <div class="modal-product__content">
-//         <p class="modal-product__title">${title}</p>
-//         <ul class="modal-product__tags">${tags.map(tag => `<li>${tag}</li>`).join('')}</ul>
-//         <p class="modal-product__description">${description}</p>
-//         <p class="modal-product__shipping-information">Shipping: ${shippingInformation}</p>
-//         <p class="modal-product__return-policy">Return Policy: ${returnPolicy}</p>
-//         <p class="modal-product__price">Price:${price} $</p>
-//         <button class="modal-product__buy-btn" type="button">Buy</button>
-//       </div>`;
-// }
+export function markupModalProduct({
+  id,
+  category,
+  brand,
+  title,
+  thumbnail,
+  price,
+  tags,
+  description,
+  shippingInformation,
+  returnPolicy,
+}) {
+  const tagsMarkup = tags.map(item => `${item}`).join('');
+  const markup = `<img class="modal-product__img" src="${thumbnail}" alt="${title}" />
+      <div class="modal-product__content">
+        <p class="modal-product__title">${title}</p>
+        <ul class="modal-product__tags">${tagsMarkup}</ul>
+        <p class="modal-product__description">${description}</p>
+        <p class="modal-product__shipping-information">Shipping: ${shippingInformation}</p>
+        <p class="modal-product__return-policy">Return Policy: ${returnPolicy}</p>
+        <p class="modal-product__price">Price:${price} $</p>
+        <button class="modal-product__buy-btn" type="button">Buy</button>
+      </div>`;
+  refs.modalProduct.innerHTML = markup;
+}

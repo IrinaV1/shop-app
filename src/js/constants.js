@@ -3,6 +3,8 @@ export const API_ENDPOINTS = {
   CATEGORIES: '/products/category-list',
   PRODUCTS: '/products',
   CATEGORY: '/products/category/',
+  PRODUCT_BY_ID: '/products/',
+  SEARCH_PRODUCT: '/products/search',
 };
 export const PER_PAGE = 12;
 

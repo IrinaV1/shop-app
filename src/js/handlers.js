@@ -1,30 +1,31 @@
 import { arrIdCart, CART_KEY, PER_PAGE } from './constants';
-// import { openModal } from './modal';
+import { openModal } from './modal';
 
 import {
   fetchAllProducts,
   fetchCategories,
   fetchCategory,
-  fetchProductId,
+  fetchProductById,
   fetchProductName,
 } from './products-api';
-// import { refs } from './refs';
+import refs from './refs';
+
 import {
   clearList,
   hideLoader,
   hideLoadMore,
   hideNotFound,
   markupCategories,
+  markupModalProduct,
   markupProducts,
   showLoader,
   showLoadMore,
   showNotFound,
-  // markupModalProduct,
-  // markupProducts,
 } from './render-function';
 import { addLocalStorage, removeLocalStorage } from './storage';
 
 let currentPage = 1;
+
 //3. Реалізуй делегування на списку ul.categories
 export async function initHomePage() {
   try {
@@ -91,66 +92,58 @@ export async function filterByCategory(event) {
   }
 }
 
-// export async function handleModal(event) {
-//   const itemCard = event.target.closest('.products__item');
-//   if (!itemCard) return;
-//   const itemID = itemCard.dataset.id;
-
-//   console.log(itemID);
-//   try {
-//     const data = await fetchProductId(itemID);
-//     console.log(data);
-//     refs.modalProduct.innerHTML = markupModalProduct(data);
-//     refs.modal.dataset.id = itemID;
-//     openModal();
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// }
+export async function showModal(event) {
+  if (event.target.parentElement.nodeName !== 'LI') return;
+  let id = event.target.parentElement.dataset.id;
+  try {
+    const data = await fetchProductById(id);
+    console.log(data);
+    if (data) {
+      openModal();
+      markupModalProduct(data);
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+}
 
 // //form
-// export async function handleSubmit(event) {
-//   event.preventDefault();
+export async function handleSubmit(event) {
+  event.preventDefault();
+  refs.listProducts.innerHTML = '';
+  const query = event.target.elements.searchValue.value.trim();
+  console.log(query);
 
-//   let query = event.target.elements.searchValue.value.trim();
-//   console.log(query);
+  if (!query) {
+    showNotFound();
+    return;
+  }
 
-//   if (!query) {
-//     refs.notFound.classList.add('not-found--visible');
-//     refs.listProducts.innerHTML = '';
-//     return;
-//   }
+  try {
+    const data = await fetchProductName(query, (currentPage = 1));
+    console.log(data);
+    if (data.products.length === 0) {
+      showNotFound();
+      return;
+    }
+    hideNotFound();
+    markupProducts(data.products);
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    event.target.reset();
+  }
+}
 
-//   try {
-//     const data = await fetchProductName(query);
-//     console.log(data);
-//     if (data.products.length === 0) {
-//       refs.listProducts.innerHTML = '';
-//       refs.notFound.classList.add('not-found--visible');
-//       return;
-//     }
-//     refs.notFound.classList.remove('not-found--visible');
-
-//     refs.listProducts.innerHTML = markupProducts(data.products);
-//   } catch (error) {
-//     alert(error.message);
-//   } finally {
-//     event.target.reset();
-//   }
-// }
-
-// export async function handleFormClearBtn() {
-//   refs.form.reset();
-//   try {
-//     const data = await fetchAllProducts();
-
-//     refs.notFound.classList.remove('not-found--visible');
-
-//     refs.listProducts.innerHTML = markupProducts(data.products);
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// }
+export async function handleFormClearBtn() {
+  refs.form.reset();
+  try {
+    const data = await fetchAllProducts(currentPage);
+    markupProducts(data.products);
+  } catch (error) {
+    alert(error.message);
+  }
+}
 
 // //Кошик:
 // //1. Додавання товарів у кошик.
