@@ -1,14 +1,12 @@
-import { arrIdWishlist } from './js/constants';
 import { fetchProductById } from './js/products-api';
-import refs from './js/refs';
+
 import { markupProducts } from './js/render-function';
 import { getLocalStorageWishlist } from './js/storage';
 
 //Логіка сторінки Wishlist
 
-export const savedWishlist = getLocalStorageWishlist();
-// console.log(savedWishlist.length);
 async function renderWishlist() {
+  export const savedWishlist = getLocalStorageWishlist();
   try {
     const product = await Promise.all(
       savedWishlist.map(id => fetchProductById(id))
