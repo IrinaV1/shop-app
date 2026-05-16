@@ -1,1 +1,1 @@
-{"version":3,"file":"cart.js","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"cart.js","sources":["../src/cart.js"],"sourcesContent":["import refs from './js/refs';\nimport { getLocalStorage } from './js/storage';\n\n//Логіка сторінки Cart\n// export function updateCartCount(arr) {\n//   if (!arr) return;\n//   refs.cartCount.textContent = arr.length;\n// }\nexport const savedCart = getLocalStorage();\n"],"names":["getLocalStorage"],"mappings":"yCAQyBA,EAAe"}
