@@ -5,8 +5,8 @@ import { getLocalStorageWishlist } from './js/storage';
 
 //Логіка сторінки Wishlist
 
-async function renderWishlist() {
-  export const savedWishlist = getLocalStorageWishlist();
+export async function renderWishlist() {
+  const savedWishlist = getLocalStorageWishlist();
   try {
     const product = await Promise.all(
       savedWishlist.map(id => fetchProductById(id))
