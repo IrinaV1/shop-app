@@ -5,18 +5,17 @@ import { markupProducts } from './js/render-function';
 import { getLocalStorageWishlist } from './js/storage';
 
 //Логіка сторінки Wishlist
-// export function updateWishlistCount(arr) {
-//   if (!arr) return;
-//   refs.wishlistCount.textContent = arr.length;
-// }
 
 export const savedWishlist = getLocalStorageWishlist();
-console.log(savedWishlist.length);
-try {
-  const product = await Promise.all(
-    savedWishlist.map(id => fetchProductById(id))
-  );
-  markupProducts(product);
-} catch (error) {
-  console.log(error.message);
+// console.log(savedWishlist.length);
+async function renderWishlist() {
+  try {
+    const product = await Promise.all(
+      savedWishlist.map(id => fetchProductById(id))
+    );
+    markupProducts(product);
+  } catch (error) {
+    console.log(error.message);
+  }
 }
+renderWishlist();
