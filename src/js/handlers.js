@@ -1,4 +1,6 @@
-import { arrIdCart, CART_KEY, PER_PAGE } from './constants';
+// import { updateCartCount } from '../cart';
+// import { updateWishlistCount } from '../wishlist';
+import { arrIdCart, arrIdWishlist, CART_KEY, PER_PAGE } from './constants';
 import { openModal } from './modal';
 
 import {
@@ -22,10 +24,17 @@ import {
   showLoadMore,
   showNotFound,
 } from './render-function';
-import { addLocalStorage, removeLocalStorage } from './storage';
+import {
+  addLocalStorage,
+  addLocalStorageWishlist,
+  getLocalStorage,
+  getLocalStorageWishlist,
+  removeLocalStorage,
+} from './storage';
 
 let currentPage = 1;
-
+export const savedCart = getLocalStorage();
+export const savedWishlist = getLocalStorageWishlist();
 //3. Реалізуй делегування на списку ul.categories
 export async function initHomePage() {
   try {
@@ -99,6 +108,17 @@ export async function showModal(event) {
     const data = await fetchProductById(id);
     console.log(data);
     if (data) {
+      refs.modal.dataset.id = id;
+      if (arrIdCart.includes(+id)) {
+        refs.modalAddToCart.textContent = 'Remove from Cart';
+      } else {
+        refs.modalAddToCart.textContent = 'Add to Cart';
+      }
+      if (arrIdWishlist.includes(+id)) {
+        refs.modalWishlistCart.textContent = 'Remove from Wishlist';
+      } else {
+        refs.modalWishlistCart.textContent = 'Add to Wishlist';
+      }
       openModal();
       markupModalProduct(data);
     }
@@ -137,8 +157,9 @@ export async function handleSubmit(event) {
 
 export async function handleFormClearBtn() {
   refs.form.reset();
+  refs.listProducts.innerHTML = '';
   try {
-    const data = await fetchAllProducts(currentPage);
+    const data = await fetchAllProducts();
     markupProducts(data.products);
   } catch (error) {
     alert(error.message);
@@ -146,25 +167,48 @@ export async function handleFormClearBtn() {
 }
 
 // //Кошик:
-// //1. Додавання товарів у кошик.
-// export function handleAddToCart(event) {
-//   // const button = event.target;
-//   const idCart = +refs.modal.dataset.id;
-//   refs.modalAddToCart.textContent = 'Add to Cart';
-//   // refs.modalAddToCart.textContent = 'Add to Cart';
-//   if (arrIdCart > 0) {
-//     const index = arrIdCart.indexOf(idCart);
-//     arrIdCart.includes(index);
-//     arrIdCart.splice(index, 1);
-//     // arrIdCart = arrIdCart.filter(item => item !== idCart);
-//     refs.modalAddToCart.textContent = 'Add to Cart';
-//     removeLocalStorage();
-//   } else {
-//     arrIdCart.push(idCart);
-//     refs.modalAddToCart.textContent = 'Remove from Cart';
-//     addLocalStorage(arrIdCart);
-//   }
+//1. Додавання товарів у кошик.
+export function handleAddToCart(event) {
+  const idCart = Number(refs.modal.dataset.id);
+  console.log(idCart);
+  if (arrIdCart.includes(idCart)) {
+    const indexId = arrIdCart.indexOf(idCart);
+    arrIdCart.splice(indexId, 1);
+    refs.modalAddToCart.textContent = 'Add to Cart';
+    // removeLocalStorage();
+  } else {
+    arrIdCart.push(idCart);
+    refs.modalAddToCart.textContent = 'Remove from Cart';
+  }
 
-//   console.log(arrIdCart);
-//   console.log(idCart);
-// }
+  addLocalStorage(arrIdCart);
+  updateCartCount(arrIdCart);
+  console.log(arrIdCart);
+}
+//Wishlist
+//1. Додавання товарів у Wishlist.
+export function handleWishlistCart(event) {
+  const idCart = Number(refs.modal.dataset.id);
+  console.log(idCart);
+  if (arrIdWishlist.includes(idCart)) {
+    const indexId = arrIdWishlist.indexOf(idCart);
+    arrIdWishlist.splice(indexId, 1);
+    refs.modalWishlistCart.textContent = 'Add to Wishlist';
+    // removeLocalStorage();
+  } else {
+    arrIdWishlist.push(idCart);
+    refs.modalWishlistCart.textContent = 'Remove from Wishlist';
+  }
+
+  addLocalStorageWishlist(arrIdWishlist);
+  updateWishlistCount(arrIdWishlist);
+  console.log(arrIdWishlist);
+}
+export function updateWishlistCount(arr) {
+  if (!arr) return;
+  refs.wishlistCount.textContent = arr.length;
+}
+export function updateCartCount(arr) {
+  if (!arr) return;
+  refs.cartCount.textContent = arr.length;
+}

@@ -12,4 +12,6 @@ export default {
   notFound: document.querySelector('.not-found'),
   modalAddToCart: document.querySelector('.modal-product__btn--cart'),
   modalWishlistCart: document.querySelector('.modal-product__btn--wishlist'),
+  cartCount: document.querySelector('[data-cart-count]'),
+  wishlistCount: document.querySelector('[data-wishlist-count]'),
 };
