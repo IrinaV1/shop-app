@@ -1,2 +1,2 @@
-import{a}from"./assets/refs-Bbtwc9UY.js";a();
+import{a as r,g as o,u as i,b as l,c as u,d as h,r as a,s as C,e as m,h as p,f as g,i as f,m as L}from"./assets/handlers-BvmuM6cA.js";import"./assets/vendor-B1ZHW564.js";async function k(){const s=o();console.log(typeof s);const d=s.filter(t=>t);try{console.log(s);const t=await Promise.all(d.map(e=>f(e)));L(t),a.cartItems.textContent=s.length;const c=t.reduce((e,n)=>e+n.price,0);a.cartTotal.textContent=c}catch(t){console.log(t.message)}}k();r.push(...o());i(r);l.push(...u());h(l);a.listProducts.addEventListener("click",C);a.modalCloseBtn.addEventListener("click",m);a.modalWishlistCart.addEventListener("click",p);a.modalAddToCart.addEventListener("click",g);
 //# sourceMappingURL=cart.js.map
