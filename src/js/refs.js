@@ -14,4 +14,7 @@ export default {
   modalWishlistCart: document.querySelector('.modal-product__btn--wishlist'),
   cartCount: document.querySelector('[data-cart-count]'),
   wishlistCount: document.querySelector('[data-wishlist-count]'),
+  cartItems: document.querySelector('[data-count]'),
+  cartTotal: document.querySelector('[data-price]'),
+  buyProductBtn: document.querySelector('.cart-summary__btn'),
 };
